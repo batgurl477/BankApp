@@ -1,8 +1,8 @@
 # Team Aphrodite Capstone Project
 ### Downloads
-GitKraken, Stack
+GitKraken, Slack
 ### Install
-Sign into Stack and GitHub, install GitKraken
+Sign into Slack and GitHub, install GitKraken
 ### Step by step installation and download of repo
 * Open GitKraken 
 * Click the folder on the top left corner
