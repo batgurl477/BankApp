@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using BankApp.Models;
-using BankApp.Models.Users;
+
 
 namespace BankApp.Data
 {
@@ -16,7 +16,8 @@ namespace BankApp.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-        }
+            
+    }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -25,5 +26,7 @@ namespace BankApp.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<Admin> Admins { get; set; }
     }
 }
