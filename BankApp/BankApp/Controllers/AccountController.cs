@@ -17,7 +17,6 @@ using BankApp.Services;
 namespace BankApp.Controllers
 {
     [Authorize]
-    [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

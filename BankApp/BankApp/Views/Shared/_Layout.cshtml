@@ -1,9 +1,12 @@
-﻿<!DOCTYPE html>
+﻿
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BankApp</title>
+    <title>@ViewData["Title"] - BankPlaying2</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -17,27 +20,36 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">BankApp</a>
-            </div>
-            <div class="navbar-collapse collapse">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <ul class="nav">
+                        <li>
+                            <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage" style="float:left">Hello @UserManager.GetUserName(User)!</a>
+                        </li>
+                        <button type="submit" class="btn btn-link navbar-btn navbar-link" style="float:right">Log out</button>
+                    </ul>
+                </div>
+            </nav>
+        </form>
+
+    }
+    else
+    {
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li>
+                        <a asp-area="" asp-controller="Account" asp-action="Login" class="navbar-brand">Login</a>
+                    </li>
                 </ul>
-                @await Html.PartialAsync("_LoginPartial")
             </div>
-        </div>
-    </nav>
+        </nav>
+    }
+
+
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -68,5 +80,18 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+    <link href="~/css/Login.css" rel="stylesheet" type="text/css" />
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-30027142-1', 'w3layouts.com');
+        ga('send', 'pageview');
+    </script>
 </body>
 </html>
+
+
