@@ -38,5 +38,11 @@ namespace BankApp.Controllers
         {
             return View();
         }
+
+        public IActionResult editUser()
+        {
+            return View();
+        }
+
     }
 }
