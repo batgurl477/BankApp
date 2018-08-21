@@ -1,36 +1,24 @@
-﻿
+﻿@model List<BankApp.Models.ApplicationUser>
 @{
     ViewData["Title"] = "UserList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>User list</h2>
-<div id="TableList">
-    <table id="customerTable">
+<h2>User List</h2>
+<table width="85%" class="table-hover">
+    <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Date of Birth</th>
-            <th>Account number</th>
-            <th>Account number2</th>
-            <th>Account number3</th>
-            <th>Account number4</th>
+            <th style="text-align:center"> User Name </th>
+            <th style="text-align:center"> Email </th>
+            <th style="text-align:center"> Phone </th>
         </tr>
-        <tr>
-            <td>1</td>
-            <td><a href="" target="_blank">ExampleName</a></td>
-            <td>01/01/0000</td>
-            <td><a href="" target="_blank">123456789</a></td>
-            <td><a href="" target="_blank">123456789</a></td>
-            <td><a href="" target="_blank">123456789</a></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td><a href="" target="_blank">Example</a></td>
-            <td>01/01/0000</td>
-            <td><a href="" target="_blank">987654321</a></td>
-            <td><a href="" target="_blank">987654321</a></td>
-            <td><a href="" target="_blank">987654321</a></td>
-        </tr>
-    </table>
-</div>
+        @foreach (var user in Model)
+        {
+            <tr onclick="location.href = '@(Url.Action("Details", "Account", new { id = user.Id }))'" style="cursor:pointer">
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@user.PhoneNumber</td>
+            </tr>
+        }
+    </thead>
+</table>

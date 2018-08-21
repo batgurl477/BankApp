@@ -6,28 +6,52 @@
 <h2>@ViewData["Title"]</h2>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="w3layoutscontaineragileits">
         <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
             <h4>Create a new account.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" type="text" placeholder="EMAIL" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" Name="password" placeholder="PASSWORD">
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ConfirmPassword"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
+                <input asp-for="ConfirmPassword" Name="ConfirmPassword" placeholder="CONFIRM PASSWORD">
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-default">Register</button>
+            <div class="form-group">
+                <input asp-for="Address" Name="adress" placeholder="ADDRESS">
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="FirstName" Name="firstname" placeholder="FIRST NAME">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="LastName" Name="lastname" placeholder="LAST NAME">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="color:black;">
+                <input asp-for="DOB" Name="dob" placeholder="DOB">
+                <span asp-validation-for="DOB" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="City" Name="city" placeholder="CITY">
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Gender" Name="gender" placeholder="GENDER">
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <input type="submit" value="REGISTER" />
         </form>
+        <br />
+        <br />
+        <input type="submit" value="BACK TO LIST" onclick="location.href='@Url.Action("AdminMain", "Account")'; return true" />
     </div>
 </div>
 

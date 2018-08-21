@@ -23,5 +23,19 @@ namespace BankApp.Models.AccountViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Display(Name = "Date Of Birth")]
+        public string DOB { get; set; }
+
+        public string Gender { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }
