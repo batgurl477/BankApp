@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BankApp.Models;
 using BankApp.Data;
+using BankApp.Repository;
 
 namespace BankApp.Controllers
 {
     public class HomeController : Controller
     {
-        ApplicationDbContext _db;
-        public HomeController(ApplicationDbContext db)
+        private readonly HomeRepository homeRepository;
+
+        public HomeController(HomeRepository _homeRepository)
         {
-            _db = db;
+            homeRepository = _homeRepository;
         }
         public IActionResult Index()
         {
@@ -42,25 +44,22 @@ namespace BankApp.Controllers
 
         public IActionResult UserList()
         {
-            List<ApplicationUser> listUsers = _db.Users.ToList();
+            var listUsers = homeRepository.ListAll();
             return View(listUsers);
         }
 
         public IActionResult editUser(string ID)
         {
-            _db.Users.Find(ID);
-            ApplicationUser user = _db.Users.FirstOrDefault(m => m.Id == ID);
+            ApplicationUser user = homeRepository.editUser(ID);
             return View(user);
         }
 
         [HttpPost]
         public IActionResult editUser(ApplicationUser user)
-        {
-            _db.Entry(user).GetDatabaseValues();
+        {           
             if (ModelState.IsValid)
             {
-                _db.Users.Update(user);
-                _db.SaveChanges();
+                homeRepository.editUser(user);
             }
             return RedirectToAction("UserList");
         }

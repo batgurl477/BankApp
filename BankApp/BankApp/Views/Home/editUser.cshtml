@@ -1,10 +1,10 @@
 ﻿@model BankApp.Models.ApplicationUser
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "editUser";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit @Model.UserName</h2>
+<h2>Editing @Model.UserName</h2>
 
 <div class="w3layoutscontaineragileits">
     <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
@@ -64,11 +64,11 @@
             <input asp-for="@Model.Gender" Name="gender">
             <span asp-validation-for="@Model.Gender" class="text-danger"></span>
         </div>
-        <input type="submit" value="EDIT" onclick="location.href='@Url.Action("editUser", "Account", new { id = Model.Id })'; return true" />
+        <input type="submit" value="EDIT" onclick="location.href='@Url.Action("editUser", "Home", new { id = Model.Id })'; return true" />
     </form>
     <br />
     <br />
-    <input type="submit" value="BACK TO LIST" onclick="location.href='@Url.Action("EditList", "Account")'; return true" />
+    <input type="submit" value="BACK TO LIST" onclick="location.href='@Url.Action("EditList", "Home")'; return true" />
 </div>
 
 

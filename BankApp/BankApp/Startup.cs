@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using BankApp.Data;
 using BankApp.Models;
 using BankApp.Services;
+using BankApp.Repository;
 
 namespace BankApp
 {
@@ -35,6 +36,9 @@ namespace BankApp
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+
+            // Register application services.
+            services.AddScoped<HomeRepository>();
 
             services.AddMvc();
         }
