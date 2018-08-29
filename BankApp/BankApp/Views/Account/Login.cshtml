@@ -6,7 +6,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Login";
 }
 
 <script>
@@ -34,7 +34,7 @@
         })();
 </script>
 
-<h1 style="color:white">Log in to your Account</h1>
+<h1 style="color:white">Login to your Account</h1>
 <div class="w3layoutscontaineragileits">
     <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
         <input asp-for="Email" type="text" placeholder="EMAIL" />

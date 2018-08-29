@@ -10,14 +10,14 @@
         <tr>
             <th style="text-align:center"> User Name </th>
             <th style="text-align:center"> Email </th>
-            <th style="text-align:center"> Phone </th>
+            <th style="text-align:center"> Address </th>
         </tr>
         @foreach (var user in Model)
         {
             <tr onclick="location.href = '@(Url.Action("Details", "Account", new { id = user.Id }))'" style="cursor:pointer">
                 <td>@user.UserName</td>
                 <td>@user.Email</td>
-                <td>@user.PhoneNumber</td>
+                <td>@user.Address</td>
             </tr>
         }
     </thead>
