@@ -5,11 +5,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BankApp.Models;
+using BankApp.Data;
+using BankApp.Repository;
 
 namespace BankApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly HomeRepository homeRepository;
+
+        public HomeController(HomeRepository _homeRepository)
+        {
+            homeRepository = _homeRepository;
+        }
         public IActionResult Index()
         {
             return View();
@@ -36,12 +44,24 @@ namespace BankApp.Controllers
 
         public IActionResult UserList()
         {
-            return View();
+            var listUsers = homeRepository.ListAll();
+            return View(listUsers);
         }
 
-        public IActionResult editUser()
+        public IActionResult editUser(string ID)
         {
-            return View();
+            ApplicationUser user = homeRepository.editUser(ID);
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult editUser(ApplicationUser user)
+        {           
+            if (ModelState.IsValid)
+            {
+                homeRepository.editUser(user);
+            }
+            return RedirectToAction("UserList");
         }
 
     }

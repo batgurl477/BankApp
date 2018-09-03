@@ -1,45 +1,74 @@
-﻿
+﻿@model BankApp.Models.ApplicationUser
 @{
     ViewData["Title"] = "editUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- <h2>editUser</h2> -->
+<h2>Editing @Model.UserName</h2>
 
-<head>
+<div class="w3layoutscontaineragileits">
+    <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+        @Html.HiddenFor(m => m.SecurityStamp)
+        @Html.HiddenFor(m => m.ConcurrencyStamp)
+        @Html.HiddenFor(m => m.LockoutEnabled)
+        @Html.HiddenFor(m => m.EmailConfirmed)
+        @Html.HiddenFor(m => m.AccessFailedCount)
+        @Html.HiddenFor(m => m.LockoutEnabled)
+        @Html.HiddenFor(m => m.NormalizedEmail)
+        @Html.HiddenFor(m => m.NormalizedUserName)
+        @Html.HiddenFor(m => m.PasswordHash)
+        @Html.HiddenFor(m => m.TwoFactorEnabled)
+        @Html.HiddenFor(m => m.PhoneNumberConfirmed)
+        @Html.HiddenFor(m => m.PhoneNumber)
+        <hr />
+        <div class="form-group">
+            <label asp-for="@Model.UserName"></label>
+            <input asp-for="@Model.UserName" Name="username">
+            <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Email"></label>
+            <br />
+            <input asp-for="@Model.Email" Name="email">
+            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Address"></label>
+            <input asp-for="@Model.Address" Name="address">
+            <span asp-validation-for="@Model.Address" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.City"></label>
+            <br />
+            <input asp-for="@Model.City" Name="city">
+            <span asp-validation-for="@Model.City" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.DOB"></label>
+            <input asp-for="@Model.DOB" Name="DOB">
+            <span asp-validation-for="@Model.DOB" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.FirstName"></label>
+            <input asp-for="@Model.FirstName" Name="firstname">
+            <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.LastName"></label>
+            <input asp-for="@Model.LastName" Name="lastname">
+            <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Gender"></label>
+            <br />
+            <input asp-for="@Model.Gender" Name="gender">
+            <span asp-validation-for="@Model.Gender" class="text-danger"></span>
+        </div>
+        <input type="submit" value="EDIT" onclick="location.href='@Url.Action("editUser", "Home", new { id = Model.Id })'; return true" />
+    </form>
+    <br />
+    <br />
+    <input type="submit" value="BACK TO LIST" onclick="location.href='@Url.Action("EditList", "Home")'; return true" />
+</div>
 
-    <h1> Edit Customer </h1>
-     
 
-</head>
-
-
-<body>
-
-
-    <p>
-        Customer ID: <input type="text" name="custID" />
-        <br />
-
-        First Name: <input type="text" name="firstName" />
-        <br />
-
-        Surname: <input type="text" name="surName" />
-        <br />
-
-        Address: <input type="text" name="address" />
-        <input type="text" name="addressLineTwo" />
-        <br />
-
-        City: <input type="text" name="city" />
-        <br />
-
-        PostCode: <input type="text" name="postCode" />
-        <br />
-
-
-        <input type="submit" value="Update" />
-
-
-    </p>
-
-</body>
