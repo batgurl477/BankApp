@@ -26,6 +26,9 @@ namespace BankApp.Repository
         {
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
+
+
+
         }
 
         public ApplicationUser editUser(string ID)
