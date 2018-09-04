@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>User List</h2>
+<h2>Delete User List</h2>
 <table width:"85%", class="table-hover">
     <thead>
         <tr>
@@ -12,7 +12,7 @@
             <th style="text-align:center">Gender</th>
             <th style="text-align:center">Username</th>
             <th style="text-align:center">Email</th>
-            <th style="text-align:center">Phone Numver </th>
+            <th style="text-align:center">Phone Number </th>
             <th style="text-align:center">Address</th>
             <th style="text-align:center">City</th>
             <th style="text-align:center">Date of Birth</th>
@@ -20,7 +20,7 @@
         </tr>
         @foreach (var user in Model)
         {
-        <tr onclick="location.href = '@(Url.Action("Details", "Account", new { id = user.Id }))'" style="cursor:pointer">
+        <tr onclick="location.href = '@(Url.Action("Delete", "Home", new { id = user.Id }))'" style="cursor:pointer">
             <td>@user.FirstName</td>
             <td>@user.Gender</td>
             <td>@user.UserName</td>
