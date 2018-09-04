@@ -24,7 +24,7 @@
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="Address" Name="adress" placeholder="ADDRESS">
+                <input asp-for="Address" Name="address" placeholder="ADDRESS">
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -47,7 +47,7 @@
                 <input asp-for="Gender" Name="gender" placeholder="GENDER">
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
-            <input type="submit" value="REGISTER" />
+            <input type="submit" value="REGISTER" onclick="location.href='@Url.Action("Register", "Account")'; return true"/>
         </form>
         <br />
         <br />

@@ -1,4 +1,4 @@
-﻿@model List<BankApp.Models.ApplicationUser>
+@model List<BankApp.Models.ApplicationUser>
 @{
     ViewData["Title"] = "UserList";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,6 +8,17 @@
 <table width:"85%", class="table-hover">
     <thead>
         <tr>
+            <th style="text-align:center"> User Name </th>
+            <th style="text-align:center"> Email </th>
+            <th style="text-align:center"> Address </th>
+        </tr>
+        @foreach (var user in Model)
+        {
+            <tr onclick="location.href = '@(Url.Action("Details", "Account", new { id = user.Id }))'" style="cursor:pointer">
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@user.Address</td>
+            </tr>
             <th style="text-align:center">Name</th>
             <th style="text-align:center">Gender</th>
             <th style="text-align:center">Username</th>
@@ -43,7 +54,6 @@
 
 
         </tr>
-        
         }
     </thead>
 </table>

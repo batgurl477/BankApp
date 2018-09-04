@@ -64,7 +64,7 @@ namespace BankApp.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("UserList", "Home");
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -219,7 +219,8 @@ namespace BankApp.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Address = model.Address,
+                LastName = model.LastName, FirstName = model.FirstName, City = model.City, DOB = model.DOB, Gender = model.Gender};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -231,7 +232,7 @@ namespace BankApp.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("UserList", "Home");
                 }
                 AddErrors(result);
             }
