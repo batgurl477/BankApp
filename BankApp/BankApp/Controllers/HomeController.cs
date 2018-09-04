@@ -63,6 +63,15 @@ namespace BankApp.Controllers
             }
             return RedirectToAction("UserList");
         }
-
+        public IActionResult DeleteUserList()
+        {
+            var listUsers = homeRepository.ListAll();
+            return View(listUsers);
+        }
+        public IActionResult EditUserList()
+        {
+            var listUsers = homeRepository.ListAll();
+            return View(listUsers);
+        }
     }
 }
