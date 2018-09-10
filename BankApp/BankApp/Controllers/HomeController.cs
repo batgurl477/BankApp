@@ -73,5 +73,16 @@ namespace BankApp.Controllers
             var listUsers = homeRepository.ListAll();
             return View(listUsers);
         }
+
+        public IActionResult Details(string ID)
+        {
+            var user = homeRepository.SingleUser(ID);
+            return View(user);
+        }
+
+        public IActionResult AdminMain()
+        {
+            return View();
+        }
     }
 }

@@ -47,11 +47,11 @@
                 <input asp-for="Gender" Name="gender" placeholder="GENDER">
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
-            <input type="submit" value="REGISTER" onclick="location.href='@Url.Action("Register", "Account")'; return true"/>
+            <input type="submit" value="SAVE" onclick="location.href='@Url.Action("Register", "Account")'; return true"/>
         </form>
         <br />
         <br />
-        <input type="submit" value="BACK TO LIST" onclick="location.href='@Url.Action("AdminMain", "Account")'; return true" />
+        <input type="submit" value="BACK TO LIST" onclick="location.href='@Url.Action("AdminMain", "Home")'; return true" />
     </div>
 </div>
 
