@@ -80,9 +80,5 @@ namespace BankApp.Controllers
             return View(user);
         }
 
-        public IActionResult AdminMain()
-        {
-            return View();
-        }
     }
 }
