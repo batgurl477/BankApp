@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "MainPage";
+}
+
+<h2>Admin Main</h2>
+
+
+@Html.ActionLink("Delete Client", "DeleteUserList", "Home", new { }, new { style = "color:white; font-size:xx-large" })
+<br />
+@Html.ActionLink("Edit Client", "EditUserList", "Home", new { }, new { style = "color:white; font-size:xx-large" })
+<br />
+@Html.ActionLink("Register Client", "Register", "Account", new { }, new { style = "color:white; font-size:xx-large" })
+<br />
+@Html.ActionLink("List Client", "UserList", "Home", new { }, new { style = "color:white; font-size:xx-large" })
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+
