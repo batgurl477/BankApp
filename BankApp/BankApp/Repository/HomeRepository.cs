@@ -18,7 +18,6 @@ namespace BankApp.Repository
 
         public IEnumerable<ApplicationUser> ListAll()
         {
-
             return _dbContext.Users.ToList();
         }
 
@@ -26,9 +25,6 @@ namespace BankApp.Repository
         {
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
-
-
-
         }
 
         public ApplicationUser editUser(string ID)
@@ -44,6 +40,13 @@ namespace BankApp.Repository
 
             _dbContext.Users.Update(user);
             _dbContext.SaveChanges();
+        }
+
+        public ApplicationUser SingleUser(string ID)
+        {
+            _dbContext.Users.Find(ID);
+            ApplicationUser user = _dbContext.Users.SingleOrDefault(m => m.Id == ID);
+            return user;
         }
     }
 }

@@ -64,7 +64,7 @@
             <input asp-for="@Model.Gender" Name="gender">
             <span asp-validation-for="@Model.Gender" class="text-danger"></span>
         </div>
-        <input type="submit" value="EDIT" onclick="location.href='@Url.Action("editUser", "Home", new { id = Model.Id })'; return true" />
+        <input type="submit" value="SAVE" onclick="location.href='@Url.Action("editUser", "Home", new { id = Model.Id })'; return true" />
     </form>
     <br />
     <br />
