@@ -73,5 +73,9 @@ namespace BankApp.Controllers
             var listUsers = homeRepository.ListAll();
             return View(listUsers);
         }
+        public IActionResult MainPage()
+        {
+            return View();
+        }
     }
 }

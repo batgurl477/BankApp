@@ -3,17 +3,16 @@
     ViewData["Title"] = "MainPage";
 }
 
-<h2>MainPage</h2>
+<h2>Admin Main</h2>
 
-<input type="button" value="Delete" onclick="location.href='@Url.Action("ActionResult", "Account")'" />
-<input type="button" value="Edit" onclick="location.href='@Url.Action("ActionResult", "Account")'" />
-<input type="button" value="Register" onclick="location.href='@Url.Action("ActionResult", "Account")'" />
-<input type="button" value="List" onclick="location.href='@Url.Action("ActionResult", "Account")'" />
 
-@Html.ActionLink("Delete Client", "Delete")
-@Html.ActionLink("Edit Client", "Edit")
-@Html.ActionLink("Register Client", "Register")
-@Html.ActionLink("List Client", "List")
+@Html.ActionLink("Delete Client", "DeleteUserList", "Home", new { }, new { style = "color:white; font-size:xx-large" })
+<br />
+@Html.ActionLink("Edit Client", "EditUserList", "Home", new { }, new { style = "color:white; font-size:xx-large" })
+<br />
+@Html.ActionLink("Register Client", "Register", "Account", new { }, new { style = "color:white; font-size:xx-large" })
+<br />
+@Html.ActionLink("List Client", "UserList", "Home", new { }, new { style = "color:white; font-size:xx-large" })
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
