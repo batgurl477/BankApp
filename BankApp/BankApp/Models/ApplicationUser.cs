@@ -23,5 +23,6 @@ namespace BankApp.Models
         public string Address { get; set; }
         public string City { get; set; }
         public bool IsAdmin { get; set; }
+        public IEnumerable<ClientBalance> Balance { get; set; }
     }
 }

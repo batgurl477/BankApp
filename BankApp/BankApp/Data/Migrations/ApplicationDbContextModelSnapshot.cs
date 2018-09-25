@@ -85,6 +85,28 @@ namespace BankApp.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("BankApp.Models.ClientBalance", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AccountName");
+
+                    b.Property<int>("AccountNumber");
+
+                    b.Property<string>("ClientId");
+
+                    b.Property<string>("ClientRefNumber");
+
+                    b.Property<string>("OtherRefNumber");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("ClientBalance");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -191,6 +213,13 @@ namespace BankApp.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("BankApp.Models.ClientBalance", b =>
+                {
+                    b.HasOne("BankApp.Models.ApplicationUser", "Client")
+                        .WithMany("Balance")
+                        .HasForeignKey("ClientId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
