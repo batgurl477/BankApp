@@ -1,5 +1,6 @@
 ﻿using BankApp.Data;
 using BankApp.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,13 @@ namespace BankApp.Repository
             _dbContext.Users.Find(ID);
             ApplicationUser user = _dbContext.Users.SingleOrDefault(m => m.Id == ID);
             return user;
+        }
+
+        public IEnumerable<ClientBalance> ClientBalance(string ID)
+        {
+            _dbContext.Users.Find(ID);
+            var balance = _dbContext.ClientBalance.Include(m => m.Client).FirstOrDefault(m => m.Client.Id == ID);
+            yield return balance;
         }
     }
 }

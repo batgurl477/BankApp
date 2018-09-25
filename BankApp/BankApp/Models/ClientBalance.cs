@@ -13,5 +13,13 @@ namespace BankApp.Models
         public string ClientRefNumber { get; set; }
         public string OtherRefNumber { get; set; }
         public ApplicationUser Client { get; set; }
+        public AccountType AccountType { get; set; }
+        public double Balance { get; set; }
+    }
+    public enum AccountType
+    {
+        Cheque,
+        Savings,
+        Other
     }
 }

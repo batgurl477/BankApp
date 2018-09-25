@@ -64,7 +64,7 @@ namespace BankApp.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToAction("UserList", "Home");
+                    return RedirectToAction("MainPage", "Home");
                 }
                 if (result.RequiresTwoFactor)
                 {

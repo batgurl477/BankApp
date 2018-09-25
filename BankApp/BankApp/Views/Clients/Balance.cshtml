@@ -1,0 +1,38 @@
+﻿@model IEnumerable<BankApp.Models.ClientBalance>
+@{
+    ViewData["Title"] = "Balance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @foreach (var acc in Model)
+    {
+        <h2>Balances for @acc.Client.FirstName</h2>
+
+
+        <table style="width:100%; border:solid; border-color:white; text-align:left; font-size:large">
+            <thead style="border:solid; border-color:white">
+                <tr style="border:solid">
+                    <th style="border:solid">Account Name</th>
+                    <th style="border:solid">Account Number</th>
+                    <th style="border:solid">Account Type</th>
+                    <th style="border:solid">Current Balance</th>
+                </tr>
+                <tr style="border:solid">
+                    <td style="border:solid">@acc.AccountName</td>
+                    <td style="border:solid">@acc.AccountNumber</td>
+                    <td style="border:solid">@acc.AccountType</td>
+                    <td style="border:solid">$@acc.Balance</td>
+                </tr>
+            </thead>
+        </table>
+     }
+ }
+else
+{
+        <br />
+        <p style = "font-size:xx-large" > No accounts avalible. Please login to view your accounts.</p>
+}
