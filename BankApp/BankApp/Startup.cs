@@ -41,7 +41,7 @@ namespace BankApp
             services.AddTransient<IEmailSender, EmailSender>();
 
             // Register application services.
-            services.AddScoped<HomeRepository>();
+            services.AddScoped<UserRepository>();
 
             services.AddMvc();
         }
@@ -68,7 +68,7 @@ namespace BankApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Account}/{action=Login}/{id?}");
+                    template: "{controller=Client}/{action=Login}/{id?}");
             });
         }
     }
