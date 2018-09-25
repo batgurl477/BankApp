@@ -54,6 +54,32 @@ namespace BankApp.Controllers
             return View(user);
         }
 
+        public IActionResult deleteUser(string ID, bool Yes)
+        {
+            if (Yes == true)
+            {
+                ApplicationUser user = homeRepository.deleteUser(ID);
+                user.IsActive = false;
+                return View(user);
+            }
+            else
+            {
+                ApplicationUser user = homeRepository.deleteUser(ID);
+                return View(user);
+
+            }
+
+
+        }
+
+        public IActionResult undeleteUser(string ID)
+        {
+            ApplicationUser user = homeRepository.editUser(ID);
+            user.IsActive = true;
+            return View(user);
+
+        }
+
         [HttpPost]
         public IActionResult editUser(ApplicationUser user)
         {           
@@ -74,12 +100,19 @@ namespace BankApp.Controllers
             return View(listUsers);
         }
 
-        public IActionResult MainPage()
+        public IActionResult MainPage(string ID)
         {
-            return View();
+            var user = homeRepository.SingleUser(ID);
+            return View(user);
         }
 
         public IActionResult Details(string ID)
+        {
+            var user = homeRepository.SingleUser(ID);
+            return View(user);
+        }
+
+        public IActionResult DetailsAdminView(string ID)
         {
             var user = homeRepository.SingleUser(ID);
             return View(user);

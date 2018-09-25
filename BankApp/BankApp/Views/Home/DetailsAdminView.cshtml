@@ -1,0 +1,84 @@
+﻿@model BankApp.Models.ApplicationUser
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align:center">Details For @Model.FirstName</h2>
+
+<ul>
+    @Html.LabelFor(m => m.FirstName):
+    @Html.ValueFor(m => m.FirstName)
+</ul>
+<ul>
+    @Html.LabelFor(m => m.LastName):
+    @Html.ValueFor(m => m.LastName)
+</ul>
+@if (Model.PhoneNumber != null)
+{
+    <ul>
+        @Html.LabelFor(m => m.PhoneNumber):
+        @Html.ValueFor(m => m.PhoneNumber)
+    </ul>
+}
+<ul>
+    @Html.LabelFor(m => m.UserName):
+    @Html.ValueFor(m => m.UserName)
+</ul>
+<ul>
+    @Html.LabelFor(m => m.Gender):
+    @Html.ValueFor(m => m.Gender)
+</ul>
+<ul>
+    @Html.LabelFor(m => m.Email):
+    @Html.ValueFor(m => m.Email)
+</ul>
+<ul>
+    @Html.Label("Email Confirmed"):
+    @Html.ValueFor(m => m.EmailConfirmed)
+</ul>
+<ul>
+    @Html.LabelFor(m => m.Address):
+    @Html.ValueFor(m => m.Address)
+</ul>
+<ul>
+    @Html.LabelFor(m => m.City):
+    @Html.ValueFor(m => m.City)
+</ul>
+<ul>
+    @Html.LabelFor(m => m.DOB):
+    @Html.ValueFor(m => m.DOB)
+</ul>
+<ul>
+    @Html.LabelFor(m => m.IsAdmin):
+    @Html.ValueFor(m => m.IsAdmin)
+</ul>
+<ul>
+    @Html.LabelFor(m => m.IsActive):
+    @Html.ValueFor(m => m.IsActive)
+</ul>
+
+@if (Model.IsActive)
+{
+    <input type="submit" value="DEACTIVATE" onclick="location.href='@Url.Action("deleteUser", "Home", new { DeleteId = Model.Id }))" ; />
+
+
+}
+else
+{
+    <input type="submit" value="REACTIVATE CLIENT" onclick="@Url.Action("undeleteUser", "Home", new { unDeleteId = Model.Id })" ; />
+
+
+}
+
+
+
+
+
+
+
+
+
+
+<input type="submit" value="BACK TO LIST" onclick="location.href='@Url.Action("UserList", "Home")'; "/>
+

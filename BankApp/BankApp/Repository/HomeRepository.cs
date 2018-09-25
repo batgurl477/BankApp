@@ -34,6 +34,15 @@ namespace BankApp.Repository
             return user;
         }
 
+        public ApplicationUser deleteUser(string ID)
+        {
+            _dbContext.Users.Find(ID);
+            ApplicationUser user = _dbContext.Users.FirstOrDefault(m => m.Id == ID);
+            _dbContext.Users.Update(user);
+            _dbContext.SaveChanges();
+            return (user);
+        }
+
         public void editUser(ApplicationUser user)
         {
             _dbContext.Entry(user).GetDatabaseValues();

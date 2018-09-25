@@ -1,7 +1,10 @@
-﻿
+﻿@model BankApp.Models.ApplicationUser
 @{
     ViewData["Title"] = "MainPage";
 }
+
+@if (Model.IsAdmin == true)
+{
 
 <h2>Admin Main</h2>
 
@@ -18,4 +21,9 @@
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
 
+}
+else
+{
+    <p>You must be an Administrator to gain access.</p>
 
+}
