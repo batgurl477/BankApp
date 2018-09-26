@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using BankApp.Models;
 using BankApp.Models.AccountViewModels;
 using BankApp.Services;
+using BankApp.Repository;
 
 namespace BankApp.Controllers
 {
@@ -23,17 +24,20 @@ namespace BankApp.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly HomeRepository _homeRepository;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            HomeRepository homeRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _homeRepository = homeRepository;
         }
 
         [TempData]
@@ -64,6 +68,12 @@ namespace BankApp.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    var client = new ApplicationUser();
+                    client.Email = model.Email;
+                    if(client.Email == model.Email)
+                    {
+                        _homeRepository.IsLoggedIn(client.Email);
+                    }
                     return RedirectToAction("MainPage", "Home");
                 }
                 if (result.RequiresTwoFactor)
@@ -245,6 +255,13 @@ namespace BankApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
+            var signedInUser = _signInManager.UserManager.GetUserId(User);           
+            var client = new ApplicationUser();
+            client.Id = signedInUser;
+            if (client.Id == signedInUser)
+            {
+                _homeRepository.IsLoggedOut(client.Id);
+            }
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");

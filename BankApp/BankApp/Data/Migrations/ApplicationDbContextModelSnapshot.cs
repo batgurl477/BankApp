@@ -48,6 +48,8 @@ namespace BankApp.Data.Migrations
 
                     b.Property<bool>("IsAdmin");
 
+                    b.Property<bool>("IsLoggedIn");
+
                     b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");

@@ -24,5 +24,6 @@ namespace BankApp.Models
         public string City { get; set; }
         public bool IsAdmin { get; set; }
         public IEnumerable<ClientBalance> Balance { get; set; }
+        public bool IsLoggedIn { get; set; }
     }
 }
