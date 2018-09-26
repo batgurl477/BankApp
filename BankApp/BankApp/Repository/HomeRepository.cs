@@ -50,11 +50,15 @@ namespace BankApp.Repository
             return user;
         }
 
-        public IEnumerable<ClientBalance> ClientBalance(string ID)
+        public ClientBalanceViewModel ClientBalance(string ID)
         {
             _dbContext.Users.Find(ID);
-            var balance = _dbContext.ClientBalance.Include(m => m.Client).FirstOrDefault(m => m.Client.Id == ID);
-            yield return balance;
+            var viewmodel = new ClientBalanceViewModel()
+            {
+                applicationUsers = _dbContext.Users.FirstOrDefault(m => m.Id == ID),
+                clientBalances = _dbContext.ClientBalance.Where(m => m.Client.Id == ID).ToList()
+            };
+            return viewmodel;
         }
     }
 }
