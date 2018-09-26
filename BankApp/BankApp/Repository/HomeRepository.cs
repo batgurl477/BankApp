@@ -34,13 +34,18 @@ namespace BankApp.Repository
             return user;
         }
 
-        public ApplicationUser deleteUser(string ID)
+        public void deleteUser(string ID)
         {
-            _dbContext.Users.Find(ID);
-            ApplicationUser user = _dbContext.Users.FirstOrDefault(m => m.Id == ID);
-            _dbContext.Users.Update(user);
+            ApplicationUser user = SingleUser(ID);
+            user.IsActive = false;
             _dbContext.SaveChanges();
-            return (user);
+        }
+
+        public void undeleteUser(string ID)
+        {
+            ApplicationUser user = SingleUser(ID);
+            user.IsActive = true;
+            _dbContext.SaveChanges();
         }
 
         public void editUser(ApplicationUser user)

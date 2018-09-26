@@ -3,9 +3,6 @@
     ViewData["Title"] = "MainPage";
 }
 
-@if (Model.IsAdmin == true)
-{
-
 <h2>Admin Main</h2>
 
 
@@ -19,11 +16,4 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
-}
-
-}
-else
-{
-    <p>You must be an Administrator to gain access.</p>
-
 }

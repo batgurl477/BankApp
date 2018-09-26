@@ -5,7 +5,6 @@
 }
 
 <h2 style="text-align:center">Details For @Model.FirstName</h2>
-
 <ul>
     @Html.LabelFor(m => m.FirstName):
     @Html.ValueFor(m => m.FirstName)
@@ -57,28 +56,13 @@
     @Html.LabelFor(m => m.IsActive):
     @Html.ValueFor(m => m.IsActive)
 </ul>
-
 @if (Model.IsActive)
 {
-    <input type="submit" value="DEACTIVATE" onclick="location.href='@Url.Action("deleteUser", "Home", new { DeleteId = Model.Id }))" ; />
-
-
+    <input type="submit" value="DEACTIVATE" onclick="location.href='@Url.Action("deleteUser", "Home", new { ID = Model.Id })'" />
 }
 else
 {
-    <input type="submit" value="REACTIVATE CLIENT" onclick="@Url.Action("undeleteUser", "Home", new { unDeleteId = Model.Id })" ; />
-
-
+    <input type="submit" value="REACTIVATE" onclick="location.href='@Url.Action("undeleteUser", "Home", new { ID = Model.Id })'" />
 }
 
-
-
-
-
-
-
-
-
-
-<input type="submit" value="BACK TO LIST" onclick="location.href='@Url.Action("UserList", "Home")'; "/>
-
+<input type="submit" value="BACK TO LIST" onclick="location.href='@Url.Action("UserList", "Home")'; " />
