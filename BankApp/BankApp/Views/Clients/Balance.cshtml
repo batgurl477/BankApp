@@ -11,36 +11,36 @@
 {
     @if (Model.applicationUsers.IsLoggedIn)
     {
-        <table style="width:100%; border:solid; border-color:white; text-align:left; font-size:large">
-            <thead style="border:solid; border-color:white">
-                <tr style="border:solid">
-                    <th style="border:solid">Account Name</th>
-                    <th style="border:solid">Account Number</th>
-                    <th style="border:solid">Account Type</th>
-                    <th style="border:solid">Current Balance</th>
+        <div class="table2" style="border: solid; border-radius: 8px;">
+        <table style="width:100%; font-size:large; text-align:center; border: solid; border-radius:8px;">
+            <thead style="text-align:center;">
+                <tr style="height:50px; text-align:center; background-color:black; ">
+                    <th style="text-align:center;">Account Name</th>
+                    <th style="text-align:center;">Account Number</th>
+                    <th style="text-align:center;">Account Type</th>
+                    <th style="text-align:center;">Current Balance</th>
                 </tr>
             </thead>
             @foreach (var acc in Model.clientBalances)
             {
-                <tr style="border:solid">
-                    <td style="border:solid">@acc.AccountName</td>
-                    <td style="border:solid">@acc.AccountNumber</td>
-                    <td style="border:solid">@acc.AccountType</td>
-                    <td style="border:solid">$@acc.Balance</td>
+                <tr style="text-align:center; height:80px; color:black; background-color:white">
+                    <td style="">@acc.AccountName</td>
+                    <td style="">@acc.AccountNumber</td>
+                    <td style="">@acc.AccountType</td>
+                    <td style="">$@acc.Balance</td>
                 </tr>
             }
         </table>
+            </div>
     }
     else
     {
-        <p style="font-size:xx-large; color:white"> No accounts avalible. Please login to view your accounts.</p>
-
+        <br />
+        <p style="font-size:xx-large; color:white"> You are not authorized to view this persons accounts.</p>
     }
 }
-
 else
 {
         <br />
         <p style = "font-size:xx-large; color:white" > No accounts avalible. Please login to view your accounts.</p >
-
 } 
