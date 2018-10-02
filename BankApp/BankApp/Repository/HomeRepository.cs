@@ -36,6 +36,20 @@ namespace BankApp.Repository
             return user;
         }
 
+        public void deleteUser(string ID)
+        {
+            ApplicationUser user = SingleUser(ID);
+            user.IsActive = false;
+            _dbContext.SaveChanges();
+        }
+
+        public void undeleteUser(string ID)
+        {
+            ApplicationUser user = SingleUser(ID);
+            user.IsActive = true;
+            _dbContext.SaveChanges();
+        }
+
         public void editUser(ApplicationUser user)
         {
             _dbContext.Entry(user).GetDatabaseValues();

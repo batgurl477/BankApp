@@ -22,7 +22,13 @@ namespace BankApp.Models
         public string Gender { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
+        //Required to access admin-only feats like Client Logical Delete
         public bool IsAdmin { get; set; }
+
+        //Logical Delete
+        [Display(Name = "Status")]
+        public bool IsActive { get; set; }
+
         public IEnumerable<ClientBalance> Balance { get; set; }
         public bool IsLoggedIn { get; set; }
     }

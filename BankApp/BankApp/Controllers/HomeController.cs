@@ -54,6 +54,24 @@ namespace BankApp.Controllers
             return View(user);
         }
 
+        public IActionResult deleteUser(string ID)
+        {
+            if (ModelState.IsValid)
+            {
+                homeRepository.deleteUser(ID);
+            }
+            return RedirectToAction("UserList");
+        }
+
+        public IActionResult undeleteUser(string ID)
+        {
+            if (ModelState.IsValid)
+            {
+                homeRepository.undeleteUser(ID);
+            }
+            return RedirectToAction("UserList");
+        }
+
         [HttpPost]
         public IActionResult editUser(ApplicationUser user)
         {           
@@ -75,11 +93,17 @@ namespace BankApp.Controllers
         }
 
         public IActionResult MainPage()
-        {
+        {            
             return View();
         }
 
         public IActionResult Details(string ID)
+        {
+            var user = homeRepository.SingleUser(ID);
+            return View(user);
+        }
+
+        public IActionResult DetailsAdminView(string ID)
         {
             var user = homeRepository.SingleUser(ID);
             return View(user);
