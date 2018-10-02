@@ -12,11 +12,11 @@ namespace BankApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UserRepository userRepository;
+        private readonly HomeRepository homeRepository;
 
-        public HomeController(UserRepository _userRepository)
+        public HomeController(HomeRepository _homeRepository)
         {
-            userRepository = _userRepository;
+            homeRepository = _homeRepository;
         }
         public IActionResult Index()
         {
@@ -44,13 +44,13 @@ namespace BankApp.Controllers
 
         public IActionResult UserList()
         {
-            var listUsers = userRepository.ListAll();
+            var listUsers = homeRepository.ListAll();
             return View(listUsers);
         }
 
         public IActionResult editUser(string ID)
         {
-            ApplicationUser user = userRepository.editUser(ID);
+            ApplicationUser user = homeRepository.editUser(ID);
             return View(user);
         }
 
@@ -59,18 +59,18 @@ namespace BankApp.Controllers
         {           
             if (ModelState.IsValid)
             {
-                userRepository.editUser(user);
+                homeRepository.editUser(user);
             }
             return RedirectToAction("UserList");
         }
         public IActionResult DeleteUserList()
         {
-            var listUsers = userRepository.ListAll();
+            var listUsers = homeRepository.ListAll();
             return View(listUsers);
         }
         public IActionResult EditUserList()
         {
-            var listUsers = userRepository.ListAll();
+            var listUsers = homeRepository.ListAll();
             return View(listUsers);
         }
 
@@ -81,7 +81,7 @@ namespace BankApp.Controllers
 
         public IActionResult Details(string ID)
         {
-            var user = userRepository.SingleUser(ID);
+            var user = homeRepository.SingleUser(ID);
             return View(user);
         }
 
