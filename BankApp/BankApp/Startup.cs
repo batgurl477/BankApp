@@ -41,7 +41,7 @@ namespace BankApp
             services.AddTransient<IEmailSender, EmailSender>();
 
             // Register application services.
-            services.AddScoped<UserRepository>();
+            services.AddScoped<HomeRepository>();
 
             services.AddMvc();
         }
