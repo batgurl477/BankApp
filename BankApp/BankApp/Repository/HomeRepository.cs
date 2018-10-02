@@ -1,5 +1,7 @@
 ﻿using BankApp.Data;
 using BankApp.Models;
+using BankApp.Models.AccountViewModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,6 +62,34 @@ namespace BankApp.Repository
         {
             _dbContext.Users.Find(ID);
             ApplicationUser user = _dbContext.Users.SingleOrDefault(m => m.Id == ID);
+            return user;
+        }
+
+        public ClientBalanceViewModel ClientBalance(string ID)
+        {
+            _dbContext.Users.Find(ID);
+            var viewmodel = new ClientBalanceViewModel()
+            {
+                applicationUsers = _dbContext.Users.FirstOrDefault(m => m.Id == ID),
+                clientBalances = _dbContext.ClientBalance.Where(m => m.Client.Id == ID).ToList()
+            };
+            return viewmodel;
+        }
+        public ApplicationUser IsLoggedIn(string Email)
+        {
+            _dbContext.Users.Find(Email);
+            ApplicationUser user = _dbContext.Users.SingleOrDefault(m => m.Email == Email);
+            user.IsLoggedIn = true;
+            _dbContext.SaveChanges();
+            return user;
+        }
+
+        public ApplicationUser IsLoggedOut(string ID)
+        {
+            _dbContext.Users.Find(ID);
+            ApplicationUser user = _dbContext.Users.SingleOrDefault(m => m.Id == ID);
+            user.IsLoggedIn = false;
+            _dbContext.SaveChanges();
             return user;
         }
     }
