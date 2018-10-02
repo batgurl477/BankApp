@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace BankApp.Repository
 {
-    public class UserRepository
+    public class homeRepository
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public UserRepository(ApplicationDbContext dbContext)
+        public homeRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
