@@ -1,0 +1,52 @@
+﻿@model BankApp.Models.ClientMoneyTranferViewModel
+@{
+    ViewData["Title"] = "Transfer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@inject SignInManager<ApplicationUser> SignInManager
+
+<h2>Transfer</h2>
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (Model.Client.IsLoggedIn)
+    {
+        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+            <div class="row">
+                <div class="w3layoutscontaineragileits">
+                    <div class="form-group">
+                        <input asp-for="MoneyTransfer.Amount" type="text" placeholder="AMOUNT" />
+                        <br />
+                    </div>
+
+                    <div class="form-group">
+                        @Html.DropDownListFor(m => m.MoneyTransfer.FromAccount,
+                             new SelectList(Model.ClientBalances, "AccountName", "AccountName"),
+                             "Select From Account",
+                             new { @class = "form-control", @required = "true", id = "fromacc" })
+                        <br />
+                    </div>
+
+                    <div class="form-group">
+                        @Html.DropDownListFor(m => m.MoneyTransfer.ToAccount,
+                                         new SelectList(Model.ClientBalances, "AccountName", "AccountName"),
+                                         "Select To Account",
+                                         new { @class = "form-control", @required = "true", id = "toacc" })
+                        <br />
+                    </div>
+
+                </div>
+            </div>
+            <input type="submit" value="Transfer" onclick="location.href='@Url.Action("Transfer", "Client")'" />
+        </form>
+    }
+    else
+    {
+        <br />
+        <p style="font-size:xx-large; color:white"> You are not authorized to view this persons accounts.</p>
+    }
+}
+else
+{
+    <br />
+    <p style="font-size:xx-large; color:white"> No accounts avalible. Please login to view your accounts.</p>
+} 
