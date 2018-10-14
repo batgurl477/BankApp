@@ -98,13 +98,15 @@ namespace BankApp.Repository
 
         public ClientMoneyTranferViewModel Transfers(ClientMoneyTranferViewModel moneyTransfer, string ID)
         {
-
             _dbContext.Users.Find(ID);
             ApplicationUser user = _dbContext.Users.SingleOrDefault(m => m.Id == ID);
 
 
-            ClientBalance toAcc = _dbContext.ClientBalance.SingleOrDefault(m => m.AccountName == moneyTransfer.MoneyTransfer.ToAccount);
-            ClientBalance fromAcc = _dbContext.ClientBalance.SingleOrDefault(m => m.AccountName == moneyTransfer.MoneyTransfer.FromAccount);
+            ClientBalance toAcc = _dbContext.ClientBalance.Where(m => m.Client.Id == ID)
+                .SingleOrDefault(m => m.AccountName == moneyTransfer.MoneyTransfer.ToAccount);
+
+            ClientBalance fromAcc = _dbContext.ClientBalance.Where(m => m.Client.Id == ID)
+                .SingleOrDefault(m => m.AccountName == moneyTransfer.MoneyTransfer.FromAccount);
 
             moneyTransfer.MoneyTransfer.ToAccount = moneyTransfer.MoneyTransfer.ToAccount;
             moneyTransfer.MoneyTransfer.FromAccount = moneyTransfer.MoneyTransfer.FromAccount;
@@ -128,6 +130,11 @@ namespace BankApp.Repository
                 ClientBalances = _dbContext.ClientBalance.Where(m => m.Client.Id == ID).ToList()
             };
 
+            foreach (var bal in viewmodel.ClientBalances.Where(m => m.Client.Id == ID))
+            {
+                bal.Account = bal.AccountName + "    " +
+                    bal.Balance.ToString();
+            }
             return viewmodel;
         }
     }

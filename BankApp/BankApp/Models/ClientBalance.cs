@@ -15,6 +15,8 @@ namespace BankApp.Models
         public ApplicationUser Client { get; set; }
         public AccountType AccountType { get; set; }
         public double Balance { get; set; }
+
+        public string Account { get; set; }
     }
     public enum AccountType
     {

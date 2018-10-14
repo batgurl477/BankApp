@@ -20,7 +20,7 @@
 
                     <div class="form-group">
                         @Html.DropDownListFor(m => m.MoneyTransfer.FromAccount,
-                             new SelectList(Model.ClientBalances, "AccountName", "AccountName"),
+                             new SelectList(Model.ClientBalances, "AccountName", "Account"),
                              "Select From Account",
                              new { @class = "form-control", @required = "true", id = "fromacc" })
                         <br />
@@ -28,7 +28,7 @@
 
                     <div class="form-group">
                         @Html.DropDownListFor(m => m.MoneyTransfer.ToAccount,
-                                         new SelectList(Model.ClientBalances, "AccountName", "AccountName"),
+                                         new SelectList(Model.ClientBalances, "AccountName", "Account"),
                                          "Select To Account",
                                          new { @class = "form-control", @required = "true", id = "toacc" })
                         <br />

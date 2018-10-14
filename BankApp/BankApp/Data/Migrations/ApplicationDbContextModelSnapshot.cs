@@ -92,6 +92,8 @@ namespace BankApp.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Account");
+
                     b.Property<string>("AccountName");
 
                     b.Property<int>("AccountNumber");
