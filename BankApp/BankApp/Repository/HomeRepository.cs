@@ -80,6 +80,9 @@ namespace BankApp.Repository
             _dbContext.Users.Find(Email);
             ApplicationUser user = _dbContext.Users.SingleOrDefault(m => m.Email == Email);
             user.IsLoggedIn = true;
+            LoginBalanceViewModel balanceViewModel = new LoginBalanceViewModel();
+            balanceViewModel.Email = user.Email;
+            balanceViewModel.ID = user.Id;
             _dbContext.SaveChanges();
             return user;
         }
@@ -91,6 +94,48 @@ namespace BankApp.Repository
             user.IsLoggedIn = false;
             _dbContext.SaveChanges();
             return user;
+        }
+
+        public ClientMoneyTranferViewModel Transfers(ClientMoneyTranferViewModel moneyTransfer, string ID)
+        {
+            _dbContext.Users.Find(ID);
+            ApplicationUser user = _dbContext.Users.SingleOrDefault(m => m.Id == ID);
+
+
+            ClientBalance toAcc = _dbContext.ClientBalance.Where(m => m.Client.Id == ID)
+                .SingleOrDefault(m => m.AccountName == moneyTransfer.MoneyTransfer.ToAccount);
+
+            ClientBalance fromAcc = _dbContext.ClientBalance.Where(m => m.Client.Id == ID)
+                .SingleOrDefault(m => m.AccountName == moneyTransfer.MoneyTransfer.FromAccount);
+
+            moneyTransfer.MoneyTransfer.ToAccount = moneyTransfer.MoneyTransfer.ToAccount;
+            moneyTransfer.MoneyTransfer.FromAccount = moneyTransfer.MoneyTransfer.FromAccount;
+            moneyTransfer.MoneyTransfer.Client = user;
+
+            toAcc.Balance += moneyTransfer.MoneyTransfer.Amount;
+            fromAcc.Balance -= moneyTransfer.MoneyTransfer.Amount;
+
+            _dbContext.MoneyTransfer.Add(moneyTransfer.MoneyTransfer);
+            _dbContext.SaveChanges();
+
+            return moneyTransfer;
+        }
+
+        public ClientMoneyTranferViewModel GetClientandBalancesandMoneyTransferDetails(string ID)
+        {
+            _dbContext.Users.Find(ID);
+            var viewmodel = new ClientMoneyTranferViewModel()
+            {
+                Client = _dbContext.Users.FirstOrDefault(m => m.Id == ID),
+                ClientBalances = _dbContext.ClientBalance.Where(m => m.Client.Id == ID).ToList()
+            };
+
+            foreach (var bal in viewmodel.ClientBalances.Where(m => m.Client.Id == ID))
+            {
+                bal.Account = bal.AccountName + "    " +
+                    bal.Balance.ToString();
+            }
+            return viewmodel;
         }
     }
 }

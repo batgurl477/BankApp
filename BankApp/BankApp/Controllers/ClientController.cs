@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BankApp.Models;
 using BankApp.Models.AccountViewModels;
+using BankApp.Repository;
 using BankApp.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -19,17 +20,20 @@ namespace BankApp.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly HomeRepository _homeRepository;
 
         public ClientController(
            UserManager<ApplicationUser> userManager,
            SignInManager<ApplicationUser> signInManager,
            IEmailSender emailSender,
-           ILogger<AccountController> logger)
+           ILogger<AccountController> logger,
+            HomeRepository homeRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _homeRepository = homeRepository;
         }
         [HttpGet]
         [AllowAnonymous]
@@ -56,7 +60,19 @@ namespace BankApp.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToAction("Index", "Home");
+                    var client = new ApplicationUser();
+                    var loginView = new LoginBalanceViewModel();
+                    client.Email = model.Email;
+                    var client1 = new ApplicationUser();
+                    
+                    if (client.Email == model.Email)
+                    {
+                        client1 = _homeRepository.IsLoggedIn(client.Email);
+                        loginView.ID = client1.Id;
+                        loginView.Email = client1.Email;
+
+                    }
+                    return RedirectToAction("Balance", "Client", new { loginView.ID });
                 }
                 else
                 {
@@ -67,6 +83,26 @@ namespace BankApp.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public IActionResult Balance(string ID)
+        {
+            var bal = _homeRepository.ClientBalance(ID);
+            return View(bal);
+        }
+
+
+        public IActionResult Transfer(string ID)
+        {
+            var single = _homeRepository.GetClientandBalancesandMoneyTransferDetails(ID);
+            return View(single);
+        }
+
+        [HttpPost]
+        public IActionResult Transfer(ClientMoneyTranferViewModel money, string ID)
+        {
+            _homeRepository.Transfers(money, ID);
+            return RedirectToAction("Balance", new { ID });
         }
     }
 }

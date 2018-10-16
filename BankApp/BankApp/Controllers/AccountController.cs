@@ -68,12 +68,6 @@ namespace BankApp.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    var client = new ApplicationUser();
-                    client.Email = model.Email;
-                    if(client.Email == model.Email)
-                    {
-                        _homeRepository.IsLoggedIn(client.Email);
-                    }
                     return RedirectToAction("MainPage", "Home");
                 }
                 if (result.RequiresTwoFactor)
@@ -255,7 +249,7 @@ namespace BankApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            var signedInUser = _signInManager.UserManager.GetUserId(User);           
+            var signedInUser = _signInManager.UserManager.GetUserId(User);
             var client = new ApplicationUser();
             client.Id = signedInUser;
             if (client.Id == signedInUser)
@@ -264,7 +258,7 @@ namespace BankApp.Controllers
             }
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction("Login","Client");
         }
 
         [HttpPost]
