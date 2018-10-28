@@ -68,7 +68,22 @@ namespace BankApp.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToAction("MainPage", "Home");
+                    var User = new ApplicationUser();
+                    User.Email = model.Email;
+                    var User1 = new ApplicationUser();
+                    if (User.Email == model.Email)
+                    {
+                        User1 = _homeRepository.IsLoggedIn(User.Email);
+                        if (User1.IsAdmin == false)
+                        {
+                            _logger.LogWarning("you need to be admin to login here.");
+                            TempData["message"] = "User is Client";
+                            return RedirectToAction("Login", "Client");
+                        }
+                        
+                        return RedirectToAction("MainPage", "Home");
+                    }
+                    
                 }
                 if (result.RequiresTwoFactor)
                 {

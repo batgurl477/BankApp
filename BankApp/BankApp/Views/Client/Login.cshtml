@@ -4,35 +4,34 @@
 @using Microsoft.AspNetCore.Http.Authentication
 @model LoginViewModel
 @inject SignInManager<ApplicationUser> SignInManager
-
 @{
     ViewData["Title"] = "Login";
 }
+<script>
+    (function () {
+        if (typeof _bsa !== 'undefined' && _bsa) {
+            // format, zoneKey, segment:value, options
+            _bsa.init('flexbar', 'CKYI627U', 'placement:w3layoutscom');
+        }
+    })();
+</script>
+<script>
+    (function () {
+        if (typeof _bsa !== 'undefined' && _bsa) {
+            // format, zoneKey, segment:value, options
+            _bsa.init('fancybar', 'CKYDL2JN', 'placement:demo');
+        }
+    })();
+</script>
+<script>
+    (function () {
+        if (typeof _bsa !== 'undefined' && _bsa) {
+            // format, zoneKey, segment:value, options
+            _bsa.init('stickybox', 'CKYI653J', 'placement:w3layoutscom');
+        }
+    })();
+</script>
 
-<script>
-        (function () {
-            if (typeof _bsa !== 'undefined' && _bsa) {
-                // format, zoneKey, segment:value, options
-                _bsa.init('flexbar', 'CKYI627U', 'placement:w3layoutscom');
-            }
-        })();
-</script>
-<script>
-        (function () {
-            if (typeof _bsa !== 'undefined' && _bsa) {
-                // format, zoneKey, segment:value, options
-                _bsa.init('fancybar', 'CKYDL2JN', 'placement:demo');
-            }
-        })();
-</script>
-<script>
-        (function () {
-            if (typeof _bsa !== 'undefined' && _bsa) {
-                // format, zoneKey, segment:value, options
-                _bsa.init('stickybox', 'CKYI653J', 'placement:w3layoutscom');
-            }
-        })();
-</script>
 
 <h1 style="color:white">Login to your Account</h1>
 <div class="w3layoutscontaineragileits">
@@ -50,7 +49,6 @@
                 </label>
             </div>
         </div>
-
         <br />
         <div class="aitssendbuttonw3ls">
             <input type="submit" value="LOGIN" />
@@ -59,6 +57,14 @@
         <br />
     </form>
 </div>
+@* from account controller  Login *@
+@if (TempData["message"] != null)
+{
+    <script>
+        window.alert("Next page is the correct page for you to Login");
+    </script>
+
+}
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
