@@ -38,6 +38,8 @@
             </div>
             <input type="submit" value="Transfer" onclick="location.href='@Url.Action("Transfer", "Client")'" />
         </form>
+        <br />
+        <input type="submit" value="Back to Balances" onclick="location.href='@Url.Action("Balance", "Client", new { ID = Model.Client.Id})'" />
     }
     else
     {

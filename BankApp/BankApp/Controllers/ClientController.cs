@@ -104,5 +104,19 @@ namespace BankApp.Controllers
             _homeRepository.Transfers(money, ID);
             return RedirectToAction("Balance", new { ID });
         }
+
+        public IActionResult AddAccount(string ID)
+        {
+            var bal = _homeRepository.AddAccount(ID);
+            return View(bal);
+        }
+
+        [HttpPost]
+        public IActionResult AddAccount(string ID, ClientBalance clientBalance)
+        {
+            _homeRepository.AddAccount(ID, clientBalance);
+
+            return RedirectToAction("Balance", new { ID });
+        }
     }
 }
