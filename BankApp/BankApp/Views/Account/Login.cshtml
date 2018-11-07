@@ -37,9 +37,10 @@
 <h1 style="color:white">Login to your Admin Account</h1>
 <div class="w3layoutscontaineragileits">
     <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+        <span asp-validation-for="Email" class="text-danger" style="color:red; font-size:x-large; font-style:oblique;"></span>
         <input asp-for="Email" type="text" placeholder="EMAIL" />
         <br />
-        <span asp-validation-for="Email" class="text-danger" style="color:red"></span>
+
         <input asp-for="Password" Name="password" placeholder="PASSWORD">
         <span asp-validation-for="Password" class="text-danger" style="color:red"></span>
         <div class="agileinfotickwthree">

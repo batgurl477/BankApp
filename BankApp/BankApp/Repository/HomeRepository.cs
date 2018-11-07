@@ -133,7 +133,7 @@ namespace BankApp.Repository
 
             foreach (var bal in viewmodel.ClientBalances.Where(m => m.Client.Id == ID))
             {
-                bal.Account = bal.AccountName + "    " +
+                bal.Account = bal.AccountName + "    $" +
                     bal.Balance.ToString();
             }
             return viewmodel;
@@ -159,6 +159,13 @@ namespace BankApp.Repository
             _dbContext.SaveChanges();
 
             return newBal;
+        }
+      
+        public ApplicationUser IsAdmin(string Email)
+        {
+            _dbContext.Users.Find(Email);
+            ApplicationUser user = _dbContext.Users.SingleOrDefault(m => m.Email == Email);
+            return user;
         }
     }
 }

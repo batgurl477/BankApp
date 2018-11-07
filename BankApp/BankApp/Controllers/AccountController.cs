@@ -64,15 +64,26 @@ namespace BankApp.Controllers
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                var admin = new ApplicationUser();
+                admin.Email = model.Email;
+
+                admin = _homeRepository.IsAdmin(admin.Email);
+
+                Microsoft.AspNetCore.Identity.SignInResult result = new Microsoft.AspNetCore.Identity.SignInResult();
+                if (admin.IsAdmin == true)
                 {
-                    _logger.LogInformation("User logged in.");
-                    return RedirectToAction("MainPage", "Home");
+                    result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, 
+                        model.RememberMe, lockoutOnFailure: false);
+                    if (result.Succeeded)
+                    {
+                        _logger.LogInformation("User logged in.");
+                        return RedirectToAction("MainPage", "Home");
+                    }
                 }
-                if (result.RequiresTwoFactor)
+                else
                 {
-                    return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+                    ModelState.AddModelError("Email", "Invalid login attempt. You must be an Admin to login.");
+                    return View(model);
                 }
                 if (result.IsLockedOut)
                 {
@@ -90,61 +101,6 @@ namespace BankApp.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> LoginWith2fa(bool rememberMe, string returnUrl = null)
-        {
-            // Ensure the user has gone through the username & password screen first
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-
-            if (user == null)
-            {
-                throw new ApplicationException($"Unable to load two-factor authentication user.");
-            }
-
-            var model = new LoginWith2faViewModel { RememberMe = rememberMe };
-            ViewData["ReturnUrl"] = returnUrl;
-
-            return View(model);
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LoginWith2fa(LoginWith2faViewModel model, bool rememberMe, string returnUrl = null)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
-            {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
-            var authenticatorCode = model.TwoFactorCode.Replace(" ", string.Empty).Replace("-", string.Empty);
-
-            var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, rememberMe, model.RememberMachine);
-
-            if (result.Succeeded)
-            {
-                _logger.LogInformation("User with ID {UserId} logged in with 2fa.", user.Id);
-                return RedirectToLocal(returnUrl);
-            }
-            else if (result.IsLockedOut)
-            {
-                _logger.LogWarning("User with ID {UserId} account locked out.", user.Id);
-                return RedirectToAction(nameof(Lockout));
-            }
-            else
-            {
-                _logger.LogWarning("Invalid authenticator code entered for user with ID {UserId}.", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
-                return View();
-            }
-        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -224,7 +180,8 @@ namespace BankApp.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Address = model.Address,
-                LastName = model.LastName, FirstName = model.FirstName, City = model.City, DOB = model.DOB, Gender = model.Gender};
+                LastName = model.LastName, FirstName = model.FirstName, City = model.City,
+                    DOB = model.DOB, Gender = model.Gender};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -288,7 +245,8 @@ namespace BankApp.Controllers
             }
 
             // Sign in the user with this external login provider if the user already has a login.
-            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey,
+                isPersistent: false, bypassTwoFactor: true);
             if (result.Succeeded)
             {
                 _logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
@@ -378,8 +336,6 @@ namespace BankApp.Controllers
                     return RedirectToAction(nameof(ForgotPasswordConfirmation));
                 }
 
-                // For more information on how to enable account confirmation and password reset please
-                // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
                 await _emailSender.SendEmailAsync(model.Email, "Reset Password",
