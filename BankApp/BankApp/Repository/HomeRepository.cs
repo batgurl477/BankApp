@@ -75,6 +75,7 @@ namespace BankApp.Repository
             };
             return viewmodel;
         }
+
         public ApplicationUser IsLoggedIn(string Email)
         {
             _dbContext.Users.Find(Email);
@@ -138,6 +139,28 @@ namespace BankApp.Repository
             return viewmodel;
         }
 
+        public ClientBalance AddAccount(string ID)
+        {
+            var client = _dbContext.Users.SingleOrDefault(m => m.Id == ID);
+            var Bal = new ClientBalance();
+
+            Bal.Client = client;
+
+            return Bal;
+        }
+
+        public ClientBalance AddAccount(string ID, ClientBalance newBal)
+        {
+            var client = _dbContext.Users.SingleOrDefault(m => m.Id == ID);
+
+            newBal.Client = client;
+            newBal.Balance = 100;
+            _dbContext.ClientBalance.Add(newBal);
+            _dbContext.SaveChanges();
+
+            return newBal;
+        }
+      
         public ApplicationUser IsAdmin(string Email)
         {
             _dbContext.Users.Find(Email);

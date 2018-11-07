@@ -1,0 +1,36 @@
+﻿@model BankApp.Models.ClientBalance
+
+@{
+    ViewData["Title"] = "AddAccount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add Account</h2>
+<hr />
+<div class="row">
+    <div class="w3layoutscontaineragileits">
+        <form asp-action="AddAccount">
+            <div class="form-group">
+                <input asp-for="AccountName" placeholder="Account Name" />
+                <span asp-validation-for="AccountName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="AccountNumber" placeholder="Account Number" class="form-control" />
+                <span asp-validation-for="AccountNumber" class="text-danger"></span>
+            </div>
+            <label>Account Type</label>
+            <select asp-for="@Model.AccountType" asp-items="Html.GetEnumSelectList<AccountType>()" class="form-control">Account Type</select>
+            <br />
+            <span asp-validation-for="AccountType" class="text-danger"></span>
+            <input type="submit" value="Create" class="btn btn-default" />
+            <br />
+        </form>
+    </div>
+</div>
+<br />
+<input type="submit" value="Back to Balances" onclick="location.href='@Url.Action("Balance", "Client", new { ID = Model.Client.Id })'" />
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
