@@ -167,5 +167,30 @@ namespace BankApp.Repository
             ApplicationUser user = _dbContext.Users.SingleOrDefault(m => m.Email == Email);
             return user;
         }
+
+        public ClientMoneyTranferViewModel MakeAPayment(ClientMoneyTranferViewModel moneyTransfer, string ID)
+        {
+            _dbContext.Users.Find(ID);
+            ApplicationUser user = _dbContext.Users.SingleOrDefault(m => m.Id == ID);
+
+
+            ClientBalance toAcc = _dbContext.ClientBalance.Where(m => m.Client.Id != ID)
+                .SingleOrDefault(m => m.AccountNumber.ToString() == moneyTransfer.MoneyTransfer.ToAccount);
+
+            ClientBalance fromAcc = _dbContext.ClientBalance.Where(m => m.Client.Id == ID)
+                .SingleOrDefault(m => m.AccountName == moneyTransfer.MoneyTransfer.FromAccount);
+
+            moneyTransfer.MoneyTransfer.ToAccount = moneyTransfer.MoneyTransfer.ToAccount;
+            moneyTransfer.MoneyTransfer.FromAccount = moneyTransfer.MoneyTransfer.FromAccount;
+            moneyTransfer.MoneyTransfer.Client = user;
+
+            toAcc.Balance += moneyTransfer.MoneyTransfer.Amount;
+            fromAcc.Balance -= moneyTransfer.MoneyTransfer.Amount;
+
+            _dbContext.MoneyTransfer.Add(moneyTransfer.MoneyTransfer);
+            _dbContext.SaveChanges();
+
+            return moneyTransfer;
+        }
     }
 }
