@@ -5,22 +5,24 @@
 }
 
 <h2>Delete User List</h2>
-<table style="width:100%; text-align:center" class="table-hover">
-    <thead>
-        <tr>
-            <th style="text-align:center">Name</th>
-            <th style="text-align:center">Email</th>
-            <th style="text-align:center">Address</th>
-        </tr>
-        @foreach (var user in Model)
-        {
-            <tr onclick="location.href ='@(Url.Action("detailsAdminView", "Home", new { id = user.Id }))'" style="cursor:pointer">
-                <td>@user.FirstName @user.LastName</td>
-                <td>@user.Email</td>
-                <td>@user.Address</td>
+<div class="table2" style="border: solid; border-radius: 8px;">
+    <table style="width:100%; text-align:center" class="table-hover; font-size:large; border: solid; border-radius:8px;">
+        <thead>
+            <tr style="height:50px; text-align:center; background-color:black; ">
+                <th style="text-align:center">Name</th>
+                <th style="text-align:center">Email</th>
+                <th style="text-align:center">Address</th>
             </tr>
-        }
-    </thead>
-</table>
-<br />
-<input type="submit" value="BACK TO MAIN" onclick="location.href='@Url.Action("MainPage", "Home")'; return true" />
+            @foreach (var user in Model)
+            {
+                <tr onclick="location.href ='@(Url.Action("detailsAdminView", "Home", new { id = user.Id }))'" style="cursor:pointer; font-size:large; height:80px; color:black; background-color:white;">
+                    <td>@user.FirstName @user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>@user.Address</td>
+                </tr>
+            }
+        </thead>
+    </table>
+    </div>
+    <br />
+    <input type="submit" value="BACK TO MAIN" onclick="location.href='@Url.Action("MainPage", "Home")'; return true" />
