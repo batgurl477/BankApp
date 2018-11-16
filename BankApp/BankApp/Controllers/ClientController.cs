@@ -187,6 +187,20 @@ namespace BankApp.Controllers
             return RedirectToAction("Balance", new { ID });
         }
 
+        public IActionResult MakeAPayment(string ID)
+        {
+
+            var single = _homeRepository.GetClientandBalancesandMoneyTransferDetails(ID);
+            return View(single);
+        }
+
+        [HttpPost]
+        public IActionResult MakeAPayment(string ID, ClientMoneyTranferViewModel clientBalance)
+        {
+            _homeRepository.MakeAPayment(clientBalance, ID);
+            return RedirectToAction("Balance", new { ID });
+        }
+
         public IActionResult AddAccount(string ID)
         {
             var bal = _homeRepository.AddAccount(ID);

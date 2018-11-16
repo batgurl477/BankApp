@@ -104,10 +104,6 @@ namespace BankApp.Data.Migrations
 
                     b.Property<string>("ClientId");
 
-                    b.Property<string>("ClientRefNumber");
-
-                    b.Property<string>("OtherRefNumber");
-
                     b.HasKey("ID");
 
                     b.HasIndex("ClientId");
