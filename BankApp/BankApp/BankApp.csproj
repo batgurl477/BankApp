@@ -21,6 +21,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Client\ForgotPassword.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Client\ForgotPasswordConfirmation.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Client\ResetPassword.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Client\ResetPasswordConfirmation.cshtml">
     <Content Update="Views\Client\MakeAPayment.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
