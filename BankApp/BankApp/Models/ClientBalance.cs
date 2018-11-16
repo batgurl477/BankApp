@@ -10,12 +10,9 @@ namespace BankApp.Models
         public int ID { get; set; }
         public string AccountName { get; set; }
         public int AccountNumber { get; set; }
-        public string ClientRefNumber { get; set; }
-        public string OtherRefNumber { get; set; }
         public ApplicationUser Client { get; set; }
         public AccountType AccountType { get; set; }
         public double Balance { get; set; }
-
         public string Account { get; set; }
     }
     public enum AccountType
