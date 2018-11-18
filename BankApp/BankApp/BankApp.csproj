@@ -31,6 +31,8 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Client\ResetPasswordConfirmation.cshtml">
+            <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Client\MakeAPayment.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
