@@ -1,0 +1,64 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<script>
+        (function () {
+            if (typeof _bsa !== 'undefined' && _bsa) {
+                // format, zoneKey, segment:value, options
+                _bsa.init('flexbar', 'CKYI627U', 'placement:w3layoutscom');
+            }
+        })();
+</script>
+<script>
+        (function () {
+            if (typeof _bsa !== 'undefined' && _bsa) {
+                // format, zoneKey, segment:value, options
+                _bsa.init('fancybar', 'CKYDL2JN', 'placement:demo');
+            }
+        })();
+</script>
+<script>
+        (function () {
+            if (typeof _bsa !== 'undefined' && _bsa) {
+                // format, zoneKey, segment:value, options
+                _bsa.init('stickybox', 'CKYI653J', 'placement:w3layoutscom');
+            }
+        })();
+</script>
+
+<h1 style="color:white">Login to your Account</h1>
+<div class="w3layoutscontaineragileits">
+    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+        <input asp-for="Email" type="text" placeholder="EMAIL" />
+        <br />
+        <span asp-validation-for="Email" class="text-danger" style="color:red"></span>
+        <input asp-for="Password" Name="password" placeholder="PASSWORD">
+        <span asp-validation-for="Password" class="text-danger" style="color:red"></span>
+        <div class="agileinfotickwthree">
+            <div class="checkbox">
+                <label asp-for="RememberMe">
+                    <input asp-for="RememberMe" />
+                    @Html.DisplayNameFor(m => m.RememberMe)
+                </label>
+            </div>
+        </div>
+        <br />
+        <div class="aitssendbuttonw3ls">
+            <input type="submit" value="LOGIN" />
+            <a asp-action="ForgotPassword" style="color:white">Forgot password?</a>
+        </div>
+        <br />
+    </form>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

@@ -1,0 +1,50 @@
+﻿@model BankApp.Models.ClientBalanceViewModel
+@{
+    ViewData["Title"] = "Balance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@inject SignInManager<ApplicationUser> SignInManager
+<h2>Balances for @Model.applicationUsers.FirstName</h2>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (Model.applicationUsers.IsLoggedIn)
+    {
+        <div class="table2" style="border: solid; border-radius: 8px;">
+            <table style="width:100%; font-size:large; text-align:center; border: solid; border-radius:8px;">
+                <thead style="text-align:center;">
+                    <tr style="height:50px; text-align:center; background-color:black; ">
+                        <th style="text-align:center;">Account Name</th>
+                        <th style="text-align:center;">Account Number</th>
+                        <th style="text-align:center;">Account Type</th>
+                        <th style="text-align:center;">Current Balance</th>
+                    </tr>
+                </thead>
+                @foreach (var acc in Model.clientBalances)
+                {
+                    <tr style="text-align:center; height:80px; color:black; background-color:white">
+                        <td style="">@acc.AccountName</td>
+                        <td style="">@acc.AccountNumber</td>
+                        <td style="">@acc.AccountType</td>
+                        <td style="">$@acc.Balance</td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <br />
+        <input type="submit" value="Transfer" onclick="location.href='@Url.Action("Transfer", "Client", new { ID = Model.applicationUsers.Id})'" />
+        <input type="submit" value="Add Account" onclick="location.href='@Url.Action("AddAccount", "Client", new { ID = Model.applicationUsers.Id})'" />
+        <input type="submit" value="Make A Payment" onclick="location.href='@Url.Action("MakeAPayment", "Client", new { ID = Model.applicationUsers.Id})'" />
+    }
+    else
+    {
+        <br />
+        <p style="font-size:xx-large; color:white"> You are not authorized to view this persons accounts.</p>
+    }
+}
+else
+{
+    <br />
+    <p style="font-size:xx-large; color:white"> No accounts avalible. Please login to view your accounts.</p>
+} 
