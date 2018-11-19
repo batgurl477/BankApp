@@ -139,11 +139,31 @@ namespace BankApp.Repository
             return viewmodel;
         }
 
+        public string NewAccountNumber(string number)
+        {
+            var Bal = new List<ClientBalance>();
+            Bal = _dbContext.ClientBalance.ToList();
+            number = "12345678";
+            int i = 01;
+            foreach (var item in Bal.OrderBy(a => a.AccountNumber))
+            {
+                if (number + i.ToString("D2") == item.AccountNumber.ToString())
+                {
+                    i++;
+                }              
+            }
+            number = number + i.ToString("D2");
+
+            return number;
+            
+        }
+
         public ClientBalance AddAccount(string ID)
         {
             var client = _dbContext.Users.SingleOrDefault(m => m.Id == ID);
             var Bal = new ClientBalance();
-
+            string val = NewAccountNumber(Bal.AccountNumber.ToString());
+            Bal.AccountNumber = int.Parse(val);
             Bal.Client = client;
 
             return Bal;
@@ -155,6 +175,10 @@ namespace BankApp.Repository
 
             newBal.Client = client;
             newBal.Balance = 100;
+            string val;
+            val = NewAccountNumber(newBal.AccountNumber.ToString());
+            newBal.AccountNumber = int.Parse(val);
+
             _dbContext.ClientBalance.Add(newBal);
             _dbContext.SaveChanges();
 

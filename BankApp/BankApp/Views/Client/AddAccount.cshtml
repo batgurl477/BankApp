@@ -15,8 +15,7 @@
                 <span asp-validation-for="AccountName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="AccountNumber" placeholder="Account Number" class="form-control" />
-                <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                <input asp-for="AccountNumber" disabled="disabled" placeholder="Account Number" class="form-control" />
             </div>
             <label>Account Type</label>
             <select asp-for="@Model.AccountType" asp-items="Html.GetEnumSelectList<AccountType>()" class="form-control">Account Type</select>
