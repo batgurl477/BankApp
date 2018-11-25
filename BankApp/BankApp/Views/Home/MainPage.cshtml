@@ -5,14 +5,16 @@
 
 <h2>Admin Main</h2>
 
-
-<input type="button" value="Delete" onclick="location.href='@Url.Action("ActionResult", "Account")'" />
-<b />
-<input type="button" value="Edit" onclick="location.href='@Url.Action("ActionResult", "Account")'" />
-<b />
-<input type="button" value="Register" onclick="location.href='@Url.Action("ActionResult", "Account")'" />
-<b />
-<input type="button" value="List" onclick="location.href='@Url.Action("ActionResult", "Account")'" />
+<input type="submit" value="Delete User" onclick="location.href='@Url.Action("DeleteUserList", "Home")'" />
+<br />
+<br />
+<input type="submit" value="Edit User" onclick="location.href='@Url.Action("EditUserList", "Home")'" />
+<br />
+<br />
+<input type="submit" value="Register a User" onclick="location.href='@Url.Action("Register", "Account")'" />
+<br />
+<br />
+<input type="submit" value="List All Users" onclick="location.href='@Url.Action("UserList", "Home")'" />
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
