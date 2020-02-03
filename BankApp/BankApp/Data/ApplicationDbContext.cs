@@ -11,6 +11,8 @@ namespace BankApp.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<ClientBalance> ClientBalance { get; set; }
+        public DbSet<MoneyTransfer> MoneyTransfer { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

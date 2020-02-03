@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using BankApp.Data;
 using BankApp.Models;
 using BankApp.Services;
+using BankApp.Repository;
 
 namespace BankApp
 {
@@ -26,6 +27,9 @@ namespace BankApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -35,6 +39,9 @@ namespace BankApp
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+
+            // Register application services.
+            services.AddScoped<HomeRepository>();
 
             services.AddMvc();
         }
@@ -61,7 +68,7 @@ namespace BankApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Client}/{action=Login}/{id?}");
             });
         }
     }

@@ -1,0 +1,21 @@
+﻿@model BankApp.Models.ApplicationUser
+@{
+    ViewData["Title"] = "MainPage";
+}
+
+<h2>Admin Main</h2>
+
+<input type="submit" value="Delete A User" onclick="location.href='@Url.Action("DeleteUserList", "Home")'; return true" />
+<br />
+<br />
+<input type="submit" value="Edit A User" onclick="location.href='@Url.Action("EditUserList", "Home")'; return true" />
+<br />
+<br />
+<input type="submit" value="Register A User" onclick="location.href='@Url.Action("Register", "Account")'; return true" />
+<br />
+<br />
+<input type="submit" value="List All Users" onclick="location.href='@Url.Action("UserList", "Home")'; return true" />
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
